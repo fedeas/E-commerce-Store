@@ -40,10 +40,11 @@ composer dev
 
 `composer setup` installs the PHP and Node dependencies, creates `.env`, generates the app key, runs the migrations and builds the assets. `composer dev` starts the web server, queue worker, log viewer and Vite together.
 
-Create an admin user:
+Create a user and give it admin access (only users marked as admin can open `/admin`):
 
 ```bash
 php artisan make:filament-user
+php artisan user:make-admin you@example.com
 ```
 
 The storefront runs at `http://localhost:8000` and the admin panel at `http://localhost:8000/admin`.
@@ -76,6 +77,7 @@ Suppliers can be added from the admin panel (**Supplier Bridges**) or registered
 | `catalog:normalize-products` | Clean up product titles and specification fields |
 | `catalog:restore-brand-backup {timestamp}` | Restore manufacturers from a backup |
 | `catalog:clear-products --force` | Delete all catalog products |
+| `user:make-admin {email}` | Grant admin panel access (`--revoke` to remove it) |
 | `supplier:scan-categories {supplier}` | Read remote categories from a supplier feed |
 | `supplier:sync-products {supplier}` | Sync products, prices and stock from a supplier feed |
 

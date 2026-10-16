@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -10,11 +10,15 @@ return new class extends Migration
     {
         if (Schema::hasTable('products')) {
             if (Schema::hasColumn('products', 'image_path')) {
-                DB::statement('ALTER TABLE products MODIFY image_path TEXT NULL');
+                Schema::table('products', function (Blueprint $table): void {
+                    $table->text('image_path')->nullable()->change();
+                });
             }
 
             if (Schema::hasColumn('products', 'main_image')) {
-                DB::statement('ALTER TABLE products MODIFY main_image TEXT NULL');
+                Schema::table('products', function (Blueprint $table): void {
+                    $table->text('main_image')->nullable()->change();
+                });
             }
         }
     }
@@ -23,11 +27,15 @@ return new class extends Migration
     {
         if (Schema::hasTable('products')) {
             if (Schema::hasColumn('products', 'image_path')) {
-                DB::statement('ALTER TABLE products MODIFY image_path VARCHAR(255) NULL');
+                Schema::table('products', function (Blueprint $table): void {
+                    $table->string('image_path')->nullable()->change();
+                });
             }
 
             if (Schema::hasColumn('products', 'main_image')) {
-                DB::statement('ALTER TABLE products MODIFY main_image VARCHAR(255) NULL');
+                Schema::table('products', function (Blueprint $table): void {
+                    $table->string('main_image')->nullable()->change();
+                });
             }
         }
     }

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -13,11 +13,15 @@ return new class extends Migration
         }
 
         if (Schema::hasColumn('suppliers', 'api_url')) {
-            DB::statement('ALTER TABLE suppliers MODIFY api_url TEXT NULL');
+            Schema::table('suppliers', function (Blueprint $table): void {
+                $table->text('api_url')->nullable()->change();
+            });
         }
 
         if (Schema::hasColumn('suppliers', 'product_data_url')) {
-            DB::statement('ALTER TABLE suppliers MODIFY product_data_url TEXT NULL');
+            Schema::table('suppliers', function (Blueprint $table): void {
+                $table->text('product_data_url')->nullable()->change();
+            });
         }
     }
 
@@ -28,11 +32,15 @@ return new class extends Migration
         }
 
         if (Schema::hasColumn('suppliers', 'api_url')) {
-            DB::statement('ALTER TABLE suppliers MODIFY api_url VARCHAR(255) NULL');
+            Schema::table('suppliers', function (Blueprint $table): void {
+                $table->string('api_url')->nullable()->change();
+            });
         }
 
         if (Schema::hasColumn('suppliers', 'product_data_url')) {
-            DB::statement('ALTER TABLE suppliers MODIFY product_data_url VARCHAR(255) NULL');
+            Schema::table('suppliers', function (Blueprint $table): void {
+                $table->string('product_data_url')->nullable()->change();
+            });
         }
     }
 };

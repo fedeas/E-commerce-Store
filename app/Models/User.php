@@ -44,6 +44,7 @@ class User extends Authenticatable implements FilamentUser
             'b2b_requested_at' => 'datetime',
             'b2b_approved_at' => 'datetime',
             'b2b_rejected_at' => 'datetime',
+            'is_admin' => 'boolean',
         ];
     }
 
@@ -60,8 +61,13 @@ class User extends Authenticatable implements FilamentUser
             && ! $this->isB2b();
     }
 
+    public function isAdmin(): bool
+    {
+        return (bool) $this->is_admin;
+    }
+
     public function canAccessPanel(Panel $panel): bool
     {
-        return true;
+        return $panel->getId() === 'admin' && $this->isAdmin();
     }
 } 
